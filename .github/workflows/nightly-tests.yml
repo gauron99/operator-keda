@@ -1,7 +1,6 @@
 name: nightly tests
-on:
-  schedule:
-    - cron: "0 0 * * *"
+
+on: workflow_dispatch
 
 jobs:
   nightly-test:
