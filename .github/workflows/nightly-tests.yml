@@ -11,7 +11,7 @@ jobs:
       - name: Setup Go
         uses: actions/setup-go@v3
         with:
-          go-version: 1.17
+          go-version: 1.18
 
       - name: Check out code
         uses: actions/checkout@v3
@@ -26,7 +26,7 @@ jobs:
           # Password or personal access token used to log in to a Docker registry. If not set then no login will occur
           password: ${{ secrets.GHCR_AUTH_PAT }}
           # Server address of Docker registry. If not set then will default to Docker Hub
-          registry: ghcr.io
+          # registry: ghcr.io
 
       - name: Install operator-sdk
         run: brew install operator-sdk
