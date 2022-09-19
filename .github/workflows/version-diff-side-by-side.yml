@@ -18,13 +18,14 @@ jobs:
           body="$(diff --color -bur $(ls|tail -2))"
           body="${body//'%'/'%25'}"
           body="${body//$'\n'/'%0A'}"
-          body="${body//$'\r'/'%0D'}" 
-          echo "::set-output name=body::$body"
+          body="${body//$'\r'/'%0D'}"
+          echo $body
+          echo "::set-output name=output::$body"
 
       - name: Create comment
         uses: peter-evans/create-or-update-comment@v2
         with:
           issue-number: ${{ github.event.pull_request.number }}
-          body: ${{ steps.diff-comment-id.outputs.body }}
+          body: ${{ steps.diff-comment-id.outputs.output }}
           reactions: rocket
       
