@@ -1,4 +1,4 @@
-name: version-diff
+name: version-diff-side-by-side
 on: push
     
 jobs:
@@ -10,7 +10,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Show diff
+      - name: Create comment & show diff
+        uses: peter-evans/create-or-update-comment@v2
+        with:
+          comment-id: ${{ github.event.comment.id }}
+          body: |
+            I stand by your side
+          reactions: rocket
         run: |
           cd keda/
           diff --color -byr $(ls | tail -2)
+      

@@ -10,7 +10,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Show diff
+      - name: Create comment & show diff
+        uses: peter-evans/create-or-update-comment@v2
+        with:
+          comment-id: ${{ github.event.comment.id }}
+          body: |
+            one after the other
+          reactions: eyes
         run: |
           cd keda/
           diff --color -bur $(ls | tail -2)
