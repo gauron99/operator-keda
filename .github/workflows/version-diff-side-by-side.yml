@@ -14,8 +14,8 @@ jobs:
         id: get-comment-body
         run: |
           cd keda/
-          latest_cmp=$(ls | tail -2)
-          body="$(diff --color -bur ${latest_cmp})"
+          CMP=$(ls | tail -2)
+          body="$(diff -bur ${CMP})"
           echo ${body}
           body="${body//'%'/'%25'}"
           body="${body//$'\n'/'%0A'}"
