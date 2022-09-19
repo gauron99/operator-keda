@@ -10,13 +10,22 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Create comment & show diff
+      - id: get-comment-body
+        run: |
+          cd keda/
+          diff --color -bur $(ls | tail -2) > diff.out
+          body="$(cat diff.out)"
+          body="${body//'%'/'%25'}"
+          body="${body//$'\n'/'%0A'}"
+          body="${body//$'\r'/'%0D'}" 
+          echo "::set-output name=body::$body"
+
+      - name: Create comment
         uses: peter-evans/create-or-update-comment@v2
         with:
           comment-id: ${{ github.event.comment.id }}
           body: |
             one after the other
+
+            ${{ steps.get-comment-body.outputs.body }}
           reactions: eyes
-        run: |
-          cd keda/
-          diff --color -bur $(ls | tail -2)

@@ -10,14 +10,23 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Create comment & show diff
+      - id: get-comment-body
+        run: |
+          cd keda/
+          diff --color -bur $(ls | tail -2) > diff-side.out
+          body="$(cat diff-side.out)"
+          body="${body//'%'/'%25'}"
+          body="${body//$'\n'/'%0A'}"
+          body="${body//$'\r'/'%0D'}" 
+          echo "::set-output name=body::$body"
+
+      - name: Create comment
         uses: peter-evans/create-or-update-comment@v2
         with:
           comment-id: ${{ github.event.comment.id }}
           body: |
             I stand by your side
+
+            ${{ steps.get-comment-body.outputs.body }}
           reactions: rocket
-        run: |
-          cd keda/
-          diff --color -byr $(ls | tail -2)
       
