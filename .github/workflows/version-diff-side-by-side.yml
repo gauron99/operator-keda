@@ -22,14 +22,16 @@ jobs:
           body="${body//'%'/'%25'}"
           body="${body//$'\n'/'%0A'}"
           body="${body//$'\r'/'%0D'}"
-          echo "::set-output name=body::$body"
+          test="tralala"
+          echo "::set-output name=body::$test"
 
       - name: Create comment
         uses: peter-evans/create-or-update-comment@v2
         with:
           issue-number: ${{ github.event.pull_request.number }}
+            # I present you, diff of the last 2 versions
           body: |
-            I present you, diff of the last 2 versions
+            testing length of text
             ${{ steps.diff-comment-id.outputs.body }}
           reactions: rocket
       
