@@ -16,4 +16,4 @@ jobs:
         continue-on-error: true
         run: | 
           cd keda/
-          diff --colors -br --unified=0 $(ls | tail -2)
+          diff --color -br --unified=0 $(ls | tail -2)
