@@ -15,9 +15,8 @@ jobs:
         
         run: |
           cd keda/
-          body="$(diff --color -bur $(ls|tail -2))"
-          if [ $? -e 1 ]; then
-            echo "return is 1, ok"
+          if [ body="$(diff --color -bur $(ls|tail -2))" -ne 1 ]; then
+            echo "huston, problem"
           fi;
           echo $body
           body="${body//'%'/'%25'}"
