@@ -12,24 +12,24 @@ jobs:
 
       - name: setup for comment diff
         id: diff-comment-id
-        
         run: |
           cd keda/
           if [ body="$(diff --color -bur $(ls|tail -2))" -ne 1 ]; then
             echo "huston, problem"
+            exit 1
           fi;
-          echo $body
+          echo "diff ok"
           body="${body//'%'/'%25'}"
           body="${body//$'\n'/'%0A'}"
           body="${body//$'\r'/'%0D'}"
-          echo "::set-output name=output::$body"
+          echo "::set-output name=body::$body"
 
       - name: Create comment
         uses: peter-evans/create-or-update-comment@v2
         with:
           issue-number: ${{ github.event.pull_request.number }}
           body: |
-            Pak tam vlítli Ebeni a v rukou měli hole
-            ${{ steps.diff-comment-id.outputs.output }}
+            I present you, diff of the last 2 versions
+            ${{ steps.diff-comment-id.outputs.body }}
           reactions: rocket
       
