@@ -10,16 +10,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: create diff
-        run: |
-          cd keda/
-          diff --color -bur $(ls | tail -2) > diff.out
-          pwd
-
       - id: get-comment-body
         run: |
           pwd
-          body="$(cat keda/diff-side.out)"
+          cd keda/
+          body="$(diff --color -bur $(ls | tail -2))"
           body="${body//'%'/'%25'}"
           body="${body//$'\n'/'%0A'}"
           body="${body//$'\r'/'%0D'}" 
