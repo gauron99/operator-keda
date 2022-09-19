@@ -3,7 +3,7 @@ on: pull_request
     
 jobs:
   diff:
-    name: Show diff
+    name: Show diff side by
     runs-on: ubuntu-latest
 
     steps:
@@ -16,16 +16,20 @@ jobs:
         run: |
           cd keda/
           body="$(diff --color -bur $(ls|tail -2))"
+          echo "this"
+          echo $body
+          echo "that"
           body="${body//'%'/'%25'}"
           body="${body//$'\n'/'%0A'}"
           body="${body//$'\r'/'%0D'}"
-          echo $body
           echo "::set-output name=output::$body"
 
       - name: Create comment
         uses: peter-evans/create-or-update-comment@v2
         with:
           issue-number: ${{ github.event.pull_request.number }}
-          body: ${{ steps.diff-comment-id.outputs.output }}
+          body: |
+            Pak tam vlítli Ebeni a v rukou měli hole
+            ${{ steps.diff-comment-id.outputs.output }}
           reactions: rocket
       
