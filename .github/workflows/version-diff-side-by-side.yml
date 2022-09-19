@@ -12,13 +12,14 @@ jobs:
 
       - name: setup for comment diff
         id: diff-comment-id
-        continue-on-error: true
+        
         run: |
           cd keda/
           body="$(diff --color -bur $(ls|tail -2))"
-          echo "this"
+          if [ $? -e 1 ]; then
+            echo "return is 1, ok"
+          fi;
           echo $body
-          echo "that"
           body="${body//'%'/'%25'}"
           body="${body//$'\n'/'%0A'}"
           body="${body//$'\r'/'%0D'}"
