@@ -12,9 +12,10 @@ jobs:
 
       - name: setup for comment diff
         id: get-comment-body
+        continue-on-error: true
         run: |
           cd keda/
-          body="$(diff --color -bur $(ls|tail -2) 2>/dev/null)"
+          body="$(diff --color -bur $(ls|tail -2))"
           body="${body//'%'/'%25'}"
           body="${body//$'\n'/'%0A'}"
           body="${body//$'\r'/'%0D'}" 
