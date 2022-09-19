@@ -1,15 +1,17 @@
 name: version-diff
 on: 
-  pull_request:
-    paths: 
-      - 'keda/**'
+  workflow_dispatch:
+    
 jobs:
   diff:
     name: Show diff
     runs-on: ubuntu-latest
 
     steps:
-      - name: cd to keda dir
-        run: cd keda/
-      - name: show diff
-        run: diff -bur $(ls | tail -2)
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Show diff
+        run: |
+          cd keda/
+          diff -bur $(ls | tail -2)
