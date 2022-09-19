@@ -14,6 +14,7 @@ jobs:
         id: diff-comment-id
         run: |
           cd keda/
+          diff_text=""
           if [ diff_text="$(diff --color -bur $(ls|tail -2))" -ne 1 ]; then
             echo "huston problem -> exit code of diff not 1"
             exit 1
@@ -22,7 +23,6 @@ jobs:
           diff_text="${diff_text//$'\n'/'%0A'}"
           diff_text="${diff_text//$'\r'/'%0D'}"
           diff_text="<details>"$diff_text"</details>"
-          echo $diff_text
           echo "::set-output name=body::$diff_text"
 
       - name: Create comment
