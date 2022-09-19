@@ -18,11 +18,12 @@ jobs:
             echo "huston problem -> exit code of diff not 1"
             exit 1
           fi;
-          diff_text=${diff_text:0:100}
+          diff_text=${diff_text:0:10}
           diff_text="${diff_text//'%'/'%25'}"
           diff_text="${diff_text//$'\n'/'%0A'}"
           diff_text="${diff_text//$'\r'/'%0D'}"
           echo $diff_text
+          diff_text="<details>"$diff_text"</details>"
           echo "::set-output name=body::$diff_text"
 
       - name: Create comment
