@@ -10,14 +10,16 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - id: get-comment-body
+      - name: setup for comment diff
+        id: get-comment-body
         run: |
-          pwd
           cd keda/
+          pwd
           body="$(diff --color -bur $(ls | tail -2))"
           body="${body//'%'/'%25'}"
           body="${body//$'\n'/'%0A'}"
           body="${body//$'\r'/'%0D'}" 
+          echo "hello after"
           echo "::set-output name=body::$body"
 
       - name: Create comment
