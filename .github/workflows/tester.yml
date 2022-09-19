@@ -16,4 +16,7 @@ jobs:
         continue-on-error: true
         run: | 
           cd keda/
-          diff --color -br --unified=0 $(ls | tail -2)
+          if diff_text="$(diff --color -br --unified=0 $(ls|tail -2))" && [ $? -ne 1 ]; then
+            echo "exit code of diff not 1"
+            exit 1;
+          fi;
