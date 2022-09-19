@@ -14,7 +14,7 @@ jobs:
         id: get-comment-body
         run: |
           cd keda/
-          body="$(diff --color -bur $(ls|tail -2) 2>&1)"
+          body="$(diff --color -bur $(ls|tail -2) 2>/dev/null)"
           body="${body//'%'/'%25'}"
           body="${body//$'\n'/'%0A'}"
           body="${body//$'\r'/'%0D'}" 
