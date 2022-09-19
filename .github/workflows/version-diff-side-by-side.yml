@@ -1,0 +1,16 @@
+name: version-diff
+on: push
+    
+jobs:
+  diff:
+    name: Show diff
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Show diff
+        run: |
+          cd keda/
+          diff --color -byr $(ls | tail -2)
