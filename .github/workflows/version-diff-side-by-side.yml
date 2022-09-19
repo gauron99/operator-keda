@@ -15,8 +15,11 @@ jobs:
         run: |
           cd keda/
           CMP=$(ls | tail -2)
-          body="$(diff -bur ${CMP})"
-          echo ${body}
+          echo "1"
+          DIFF=$(diff -bur ${CMP})
+          echo "2"
+          body="$(echo ${DIFF})"
+          echo "3"
           body="${body//'%'/'%25'}"
           body="${body//$'\n'/'%0A'}"
           body="${body//$'\r'/'%0D'}" 
