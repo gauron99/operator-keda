@@ -14,24 +14,22 @@ jobs:
         id: diff-comment-id
         run: |
           cd keda/
-          if [ body="$(diff --color -bur $(ls|tail -2))" -ne 1 ]; then
-            echo "huston, problem"
+          if [ diff_text="$(diff --color -bur $(ls|tail -2))" -ne 1 ]; then
+            echo "huston problem -> exit code of diff not 1"
             exit 1
           fi;
-          echo "diff ok"
-          body="${body//'%'/'%25'}"
-          body="${body//$'\n'/'%0A'}"
-          body="${body//$'\r'/'%0D'}"
-          test="tralala"
-          echo "::set-output name=body::$test"
+          diff_text="${diff_text//'%'/'%25'}"
+          diff_text="${diff_text//$'\n'/'%0A'}"
+          diff_text="${diff_text//$'\r'/'%0D'}"
+          echo $diff_text
+          echo "::set-output name=body::$diff_text"
 
       - name: Create comment
         uses: peter-evans/create-or-update-comment@v2
         with:
           issue-number: ${{ github.event.pull_request.number }}
-            # I present you, diff of the last 2 versions
           body: |
-            testing length of text
+            Diff of versions 
             ${{ steps.diff-comment-id.outputs.body }}
           reactions: rocket
       
