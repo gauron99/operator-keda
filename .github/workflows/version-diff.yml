@@ -13,4 +13,4 @@ jobs:
       - name: Show diff
         run: |
           cd keda/
-          diff -bur $(ls | tail -2)
+          diff --color -bur $(ls | tail -2)
