@@ -15,7 +15,7 @@ jobs:
         run: |
           cd keda/
           diff_text=""
-          if [ diff_text="$(diff --color -bur $(ls|tail -2))" -ne 1 ]; then
+          if diff_text="$(diff --color -bur $(ls|tail -2))" && [ $? -ne 1 ]; then
             echo "huston problem -> exit code of diff not 1"
             exit 1
           fi;
@@ -30,7 +30,7 @@ jobs:
         with:
           issue-number: ${{ github.event.pull_request.number }}
           body: |
-            shorter string
+            Diff of versions
             ${{ steps.diff-comment-id.outputs.body }}
           reactions: rocket
       
