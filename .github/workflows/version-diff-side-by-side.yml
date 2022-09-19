@@ -15,7 +15,9 @@ jobs:
         run: |
           cd keda/
           pwd
-          body="$(diff --color -bur $(ls | tail -2))"
+          latest_cmp=$(ls | tail -2)
+          echo ${latest_cmp}
+          body="$(diff --color -bur ${latest_cmp})"
           body="${body//'%'/'%25'}"
           body="${body//$'\n'/'%0A'}"
           body="${body//$'\r'/'%0D'}" 
