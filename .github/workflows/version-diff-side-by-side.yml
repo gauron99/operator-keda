@@ -19,10 +19,11 @@ jobs:
             echo "exit code of diff not 1"
             exit 1;
           fi;
+          echo $diff_text
           diff_text="${diff_text//'%'/'%25'}"
           diff_text="${diff_text//$'\n'/'%0A'}"
           diff_text="${diff_text//$'\r'/'%0D'}"
-          diff_text="<details>```diff "$diff_text"```</details>"
+          diff_text="<details>``` "$diff_text"```</details>"
           echo "::set-output name=body::$diff_text"
 
       - name: Create comment
