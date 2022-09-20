@@ -22,7 +22,7 @@ jobs:
           diff_text="${diff_text//'%'/'%25'}"
           diff_text="${diff_text//$'\n'/'%0A'}"
           diff_text="${diff_text//$'\r'/'%0D'}"
-          diff_text="<details>"$diff_text"</details>"
+          diff_text="<details>```diff\n"$diff_text"```</details>"
           echo "::set-output name=body::$diff_text"
 
       - name: Create comment
@@ -30,7 +30,7 @@ jobs:
         with:
           issue-number: ${{ github.event.pull_request.number }}
           body: |
-            Diff of versions
+            make it in block of code
             ${{ steps.diff-comment-id.outputs.body }}
           reactions: rocket
       
