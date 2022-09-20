@@ -23,7 +23,7 @@ jobs:
           diff_text="${diff_text//'%'/'%25'}"
           diff_text="${diff_text//$'\n'/'%0A'}"
           diff_text="${diff_text//$'\r'/'%0D'}"
-          diff_text="<details>"$diff_text"</details>"
+          diff_text="<details>\`\`\`\\n"$diff_text"\`\`\`</details>"
           echo "CHECK"
           echo "$diff_text"
           echo "::set-output name=body::$diff_text"
