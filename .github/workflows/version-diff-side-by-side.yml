@@ -20,7 +20,7 @@ jobs:
             exit 1;
           fi;
           echo $diff_text
-          PREFIX=$'<details>```\n'
+          PREFIX=$'<details>```diff\n\n'
           POSTFIX=$'\n```</details>'
           diff_text="${PREFIX}${diff_text}${POSTFIX}"
           diff_text="${diff_text//'%'/'%25'}"
