@@ -52,7 +52,7 @@ jobs:
       - name: setup for comment diff
         id: diff-comment-id
         run: |
-          diff_text=$(git diff)
+          diff_text=$(git diff main...${GITHUB_REF##*/})
           echo "$diff_text"
           echo "::set-output name=body::$diff_text"
 
