@@ -1,0 +1,38 @@
+name: version-diff-advanced
+on: pull_request
+    
+jobs:
+  diff:
+    name: Show diff
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Diff
+        id: diff-comment-id
+        run: |
+          cd keda/
+          diff_text=""
+          if diff_text="$(diff --color -br --unified=0 $(ls|tail -2))" && [ $? -ne 1 ]; then
+            echo "exit code of diff not 1"
+            exit 1;
+          fi;
+          PREFIX=$'<details>\n\n```diff\n\n'
+          POSTFIX=$'\n\n```\n\n</details>'
+          diff_text="${PREFIX}${diff_text}${POSTFIX}"
+          diff_text="${diff_text//'%'/'%25'}"
+          diff_text="${diff_text//$'\n'/'%0A'}"
+          diff_text="${diff_text//$'\r'/'%0D'}"
+          echo "$diff_text"
+          echo "::set-output name=body::$diff_text"
+
+      - name: Create comment
+        uses: peter-evans/create-or-update-comment@v2
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          body: |
+            make it in block of code
+            ${{ steps.diff-comment-id.outputs.body }}
+          reactions: rocket
