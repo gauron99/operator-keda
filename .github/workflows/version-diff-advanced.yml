@@ -48,7 +48,9 @@ jobs:
       dir_new: ${{ steps.setup-id.outputs.dir_new }}
     steps:
       - id: setup-id
+        working-directory: keda/
         run: |
+          
           DIRS=$(ls|tail -2)
           echo "1: $DIRS"
           dirs=($DIRS)
