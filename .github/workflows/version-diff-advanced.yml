@@ -62,13 +62,22 @@ jobs:
           for file in $dir_old_list
           do 
             f=$root"/"$file
-            
             if [ -f "$f" ]; then
-              dirs_old="$dirs_old $file"
+              dir_old="$dir_old $file"
             fi
           done
-          echo $dirs_old
-          echo $dir_new_list
+          for file in $dir_new_list
+          do 
+            f=$root"/"$file
+            if [ -f "$f" ]; then
+              dir_new="$dir_new $file"
+            fi
+          done
+          
+          echo $dir_old
+          echo "\nseparator\n"
+          echo $dir_new
+
           echo "::set-output name=file_array::$file_array"
 
   # diff:
