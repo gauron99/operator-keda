@@ -50,9 +50,10 @@ jobs:
       - id: setup-id
         run: |
           DIRS=$(ls|tail -2)
+          echo "1: $DIRS"
           dirs=($DIRS)
-          echo "$dirs"
-          echo "${dirs[0]}"
+          echo "2: $dirs"
+          echo "3: ${dirs[0]}"
           echo "TRALALA"
           echo ${dirs[1]}
           echo "::set-output name=file_array::$file_array"
