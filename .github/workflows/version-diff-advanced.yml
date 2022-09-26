@@ -43,10 +43,14 @@ on: pull_request
 jobs:
   setup:
     runs-on: ubuntu-latest
-    outputs:
-      dir_old: ${{ steps.setup-id.outputs.dir_old }}
-      dir_new: ${{ steps.setup-id.outputs.dir_new }}
+    # outputs:
+    #   dir_old: ${{ steps.setup-id.outputs.dir_old }}
+    #   dir_new: ${{ steps.setup-id.outputs.dir_new }}
     steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup dirs for diff
       - id: setup-id
         run: |
           cd keda/
