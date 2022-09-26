@@ -58,8 +58,16 @@ jobs:
           dirs=($DIRS)
           dir_old_list=$(find ${dirs[0]} -print)
           dir_new_list=$(find ${dirs[1]} -print)
-
-          echo $dir_old_list
+          root=$(pwd)
+          for file in $dirs_old_list
+          do 
+            f=$root"/"$file
+            
+            if [ -f "$f" ]; then
+              dirs_old="$dirs_old $file"
+            fi
+          done
+          echo $dir_old
           echo $dir_new_list
           echo "::set-output name=file_array::$file_array"
 
