@@ -82,8 +82,8 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix: 
-        old: ${{github.setup.outputs.dir_old}}
-        new: ${{github.setup.outputs.dir_new}}
+        old: ${{needs.setup.outputs.dir_old}}
+        new: ${{needs.setup.outputs.dir_new}}
     needs: setup
 
     name: Show diff
