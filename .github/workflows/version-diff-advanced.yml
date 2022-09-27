@@ -80,7 +80,10 @@ jobs:
 
   diff:
     runs-on: ubuntu-latest
-
+    strategy:
+      matrix: 
+        old: ${{github.setup-id.outputs.dir_old}}
+        new: ${{github.setup-id.outputs.dir_new}}
     needs: setup
 
     name: Show diff
@@ -91,9 +94,7 @@ jobs:
       - name: make diffs
     #     id: diff-comment-id
         run: |
-          old=${{github.setup-id.outputs.dir_old}}
-          new=${{github.setup-id.outputs.dir_new}}
-          echo "$old"
+          echo ${{ matrix.old }}
           echo '\nseparator\n'
           echo "$new"
 
