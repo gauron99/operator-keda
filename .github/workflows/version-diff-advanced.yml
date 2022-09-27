@@ -73,8 +73,9 @@ jobs:
               dir_new="$dir_new $file"
             fi
           done
-          dir_old=($dir_old)
-          dir_new=($dir_new)
+
+          
+
           echo "::set-output name=dir_old::$dir_old"
           echo "::set-output name=dir_new::$dir_new"
 
