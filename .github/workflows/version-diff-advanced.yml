@@ -73,35 +73,29 @@ jobs:
               dir_new="$dir_new $file"
             fi
           done
-          
-          echo $dir_old
-          echo "\nseparator\n"
-          echo $dir_new
+          dir_old=($dir_old)
+          dir_new=($dir_new)
+          echo "::set-output name=dir_old::$dir_old"
+          echo "::set-output name=dir_new::$dir_new"
 
-          echo "::set-output name=file_array::$file_array"
+  diff:
+    runs-on: ubuntu-latest
 
-  # diff:
-  #   runs-on: ubuntu-latest
-  #   strategy:
-  #     matrix: 
-  #       old: github.steps.
-  #       new: ["hola",]
-        
-    # needs: setup
+    needs: setup
 
-    # name: Show diff
-    # runs-on: ubuntu-latest
+    name: Show diff
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
 
-    # steps:
-    #   - name: Checkout
-    #     uses: actions/checkout@v2
-
-    #   - name: setup for comment diff
+      - name: make diffs
     #     id: diff-comment-id
-    #     run: |
-    #       diff_text=$(git diff main...${GITHUB_REF##*/})
-    #       echo "$diff_text"
-    #       echo "::set-output name=body::$diff_text"
+        run: |
+          old=${{github.setup-id.outputs.dir_old}}
+          new=${{github.setup-id.outputs.dir_new}}
+          echo "$old"
+          echo '\nseparator\n'
+          echo "$new"
 
     #   - name: Create comment
     #     uses: peter-evans/create-or-update-comment@v2
