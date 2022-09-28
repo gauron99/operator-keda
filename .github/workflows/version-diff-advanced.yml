@@ -28,7 +28,8 @@ jobs:
             if [ -f "$f" ]; then
               dir_old="$dir_old $file"
             fi
-            if [ "$file" != "${($dir_old_list)[-1]}" ]; then
+            last_el=($dir_old_list)
+            if [ "$file" != "${last_el[-1]}" ]; then
               dir_old+=","
             fi
           done
