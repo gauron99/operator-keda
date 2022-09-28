@@ -24,14 +24,11 @@ jobs:
           dir_old="{\"old\":["
           for file in $dir_old_list
           do 
-            test=($dir_old_list)
-            echo " what is this ${test[-1]}||"
-
             f=$root"/"$file
             if [ -f "$f" ]; then
               dir_old="$dir_old $file"
             fi
-            if [ "$file" = "${dir_old_list[-1]}" ]; then
+            if [ "$file" != "${($dir_old_list)[-1]}" ]; then
               dir_old+=","
             fi
           done
