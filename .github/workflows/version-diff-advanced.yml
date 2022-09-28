@@ -28,22 +28,25 @@ jobs:
             if [ -f "$f" ]; then
               dir_old="$dir_old $file"
             fi
-            last_el=($dir_old_list)
-            if [ "$file" != "${last_el[-1]}" ]; then
+            le=($dir_old_list)
+            if [ "$file" != "${le[-1]}" ]; then
               dir_old+=","
             fi
           done
           dir_old="]}"
 
+          dir_new="{\"new\":["
           for file in $dir_new_list
           do 
             f=$root"/"$file
             if [ -f "$f" ]; then
               dir_new="$dir_new $file"
             fi
+            le=($dir_new_list)
+            if [ "$file" != "${le[-1]}" ]; then
+              dir_new+=","
+            fi
           done
-
-          
 
           echo "::set-output name=dir_old::$dir_old"
           echo "::set-output name=dir_new::$dir_new"
