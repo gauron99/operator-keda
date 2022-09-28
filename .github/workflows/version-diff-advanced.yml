@@ -24,7 +24,8 @@ jobs:
           dir_old="{\"old\":["
           for file in $dir_old_list
           do 
-            echo " what is this |${dir_old_list[-1]}|"
+            test=($dir_old_list)
+            echo " what is this ${test[-1]}||"
 
             f=$root"/"$file
             if [ -f "$f" ]; then
