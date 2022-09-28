@@ -59,13 +59,20 @@ jobs:
           dir_old_list=$(find ${dirs[0]} -print)
           dir_new_list=$(find ${dirs[1]} -print)
           root=$(pwd)
+
+          dir_old="{\"old\":["
           for file in $dir_old_list
           do 
             f=$root"/"$file
             if [ -f "$f" ]; then
               dir_old="$dir_old $file"
             fi
+            if [ "$file" = "${dir_old_list[-1]}" ]; then
+              dir_old+=","
+            fi
           done
+          dir_old="]}"
+
           for file in $dir_new_list
           do 
             f=$root"/"$file
@@ -83,8 +90,8 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix: 
-        old: ${{needs.setup.outputs.dir_old}}
-        new: ${{needs.setup.outputs.dir_new}}
+        old: ${{fromJSON(needs.setup.outputs.dir_old)}}
+        new: ${{fromJSON(needs.setup.outputs.dir_new)}}
     needs: setup
 
     name: Show diff
