@@ -5,8 +5,7 @@ jobs:
   setup:
     runs-on: ubuntu-latest
     outputs:
-      dir_old: ${{ steps.setup-id.outputs.dir_old }}
-      dir_new: ${{ steps.setup-id.outputs.dir_new }}
+      dir_old: ${{ steps.setup-id.outputs.files_extracted }}
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -21,50 +20,45 @@ jobs:
           dir_new_list=$(find ${dirs[1]} -print)
           root=$(pwd)
 
-          dir_old="{\"old\":["
+          files_extracted="{\"old\":["
           for file in $dir_old_list
           do 
             f=$root"/"$file
             if [ -f "$f" ]; then
               le=($dir_old_list)
-              dir_old+="\"$file\""
+              files_extracted+="\"$file\""
               if [ "$file" != "${le[-1]}" ]; then
-                dir_old+=","
+                files_extracted+=","
               fi  
             fi
           done
-          dir_old+="]}"
+          files_extracted+="],\"new\":["
 
-          dir_new="{\"new\":["
           for file in $dir_new_list
           do 
             f=$root"/"$file
             if [ -f "$f" ]; then
-              dir_new+="\"$file\""
+              files_extracted+="\"$file\""
               le=($dir_new_list)
               if [ "$file" != "${le[-1]}" ]; then
-                dir_new+=","
+                files_extracted+=","
               fi
             fi
           done
-          dir_new+="]}"
+          files_extracted+="]}"
           
-          echo $dir_old
-          echo "lalalal"
-          echo $dir_new
+          echo $files_extracted
 
-          echo "::set-output name=dir_old::$dir_old"
-          echo "::set-output name=dir_new::$dir_new"
+          echo "::set-output name=files_extracted::$files_extracted"
 
   diff:
     runs-on: ubuntu-latest
+    needs: setup
     strategy:
       matrix: 
-        old: ${{fromJSON(needs.setup.outputs.dir_old)}}
-        new: ${{fromJSON(needs.setup.outputs.dir_new)}}
-    needs: setup
+        fe: ${{fromJSON(needs.setup.outputs.files_extracted)}}
 
-    name: Show diff
+    # name: Show diff
     steps:
       - name: Checkout
         uses: actions/checkout@v2
