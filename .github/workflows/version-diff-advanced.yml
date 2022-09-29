@@ -33,7 +33,7 @@ jobs:
               dir_old+=","
             fi
           done
-          dir_old="]}"
+          dir_old+="]}"
 
           dir_new="{\"new\":["
           for file in $dir_new_list
@@ -46,6 +46,7 @@ jobs:
             if [ "$file" != "${le[-1]}" ]; then
               dir_new+=","
             fi
+            dir_new+="]}"
           done
 
           echo "::set-output name=dir_old::$dir_old"
@@ -65,7 +66,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: make diffs
-    #     id: diff-comment-id
+        id: diff-id
         run: |
           echo ${{ matrix.old }}
           echo '\nseparator\n'
