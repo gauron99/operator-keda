@@ -27,7 +27,7 @@ jobs:
             f=$root"/"$file
             if [ -f "$f" ]; then
               le=($dir_old_list)
-              dir_old="$dir_old $file"
+              dir_old+="\"$file\""
               if [ "$file" != "${le[-1]}" ]; then
                 dir_old+=","
               fi  
@@ -40,7 +40,7 @@ jobs:
           do 
             f=$root"/"$file
             if [ -f "$f" ]; then
-              dir_new="$dir_new $file"
+              dir_new+="\"$file\""
               le=($dir_new_list)
               if [ "$file" != "${le[-1]}" ]; then
                 dir_new+=","
@@ -74,7 +74,6 @@ jobs:
         run: |
           echo ${{ matrix.old }}
           echo '\nseparator\n'
-          echo "$new"
 
     #   - name: Create comment
     #     uses: peter-evans/create-or-update-comment@v2
