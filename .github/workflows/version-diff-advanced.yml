@@ -26,9 +26,10 @@ jobs:
           do 
             f=$root"/"$file
             if [ -f "$f" ]; then
-              dir_old="$dir_old $file"
+              dir_old="$dir_old \"$file\""
             fi
             le=($dir_old_list)
+            echo "cmp: $file ${le[-1]}"
             if [ "$file" != "${le[-1]}" ]; then
               dir_old+=","
             fi
@@ -40,7 +41,7 @@ jobs:
           do 
             f=$root"/"$file
             if [ -f "$f" ]; then
-              dir_new="$dir_new $file"
+              dir_new="$dir_new \"$file\""
             fi
             le=($dir_new_list)
             if [ "$file" != "${le[-1]}" ]; then
