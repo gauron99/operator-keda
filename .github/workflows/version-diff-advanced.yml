@@ -5,7 +5,7 @@ jobs:
   setup:
     runs-on: ubuntu-latest
     outputs:
-      dir_old: ${{ steps.setup-id.outputs.files_extracted }}
+      files_extracted: ${{ steps.setup-id.outputs.files_extracted }}
     steps:
       - name: Checkout
         uses: actions/checkout@v2
