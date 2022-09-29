@@ -49,6 +49,10 @@ jobs:
             dir_new+="]}"
           done
 
+          echo $dir_old
+          echo "lalalal"
+          echo $dir_new
+
           echo "::set-output name=dir_old::$dir_old"
           echo "::set-output name=dir_new::$dir_new"
 
