@@ -46,9 +46,9 @@ jobs:
             if [ "$file" != "${le[-1]}" ]; then
               dir_new+=","
             fi
-            dir_new+="]}"
           done
-
+          dir_new+="]}"
+          
           echo $dir_old
           echo "lalalal"
           echo $dir_new
