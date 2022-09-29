@@ -55,8 +55,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: setup
     strategy:
-      matrix: 
-        fe: ${{fromJSON(needs.setup.outputs.files_extracted)}}
+      matrix: ${{fromJSON(needs.setup.outputs.files_extracted)}}
 
     # name: Show diff
     steps:
