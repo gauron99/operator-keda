@@ -57,7 +57,7 @@ jobs:
       matrix: ${{fromJSON(needs.setup.outputs.new_files)}}
 
     env:
-      of: ${{ steps.setup-id.outputs.old_files }}
+      of: ${{ needs.setup.outputs.old_files }}
     name: Get diff of files
     steps:
       - name: Checkout
