@@ -69,7 +69,7 @@ jobs:
       - name: make diffs
         id: diff-id
         run: |
-          regex=$(echo ${{matrix.nf}} | sed 's/\/.*//')
+          regex=$(echo matrix.nf | sed 's/\/.*//')
           echo $nf
           echo '---separator---\n'
           echo $regex
