@@ -54,7 +54,8 @@ jobs:
     runs-on: ubuntu-latest
     needs: setup
     strategy:
-      matrix: ${{fromJSON(needs.setup.outputs.new_files)}}
+      matrix: 
+        new_file: ${{fromJSON(needs.setup.outputs.new_files)}} 
 
     env:
       of: ${{ needs.setup.outputs.old_files }}
@@ -66,10 +67,10 @@ jobs:
       - name: make diffs
         id: diff-id
         run: |
-          OF=${{ steps.setup-id.outputs.old_files }}
-          echo $OF
-          echo '\nseparator\n'
-          echo $of
+          regex=$(echo $new_file | sed 's/\/.*//')
+          echo $new_file
+          echo '---separator---\n'
+          echo $regex
 
     #   - name: Create comment
     #     uses: peter-evans/create-or-update-comment@v2
