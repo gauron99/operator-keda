@@ -55,8 +55,7 @@ jobs:
     runs-on: ubuntu-latest
 
     strategy:
-      matrix: 
-        nf: ${{fromJSON(needs.setup.outputs.new_files)}}
+      matrix: ${{fromJSON(needs.setup.outputs.new_files)}}
 
     env:
       of: ${{ needs.setup.outputs.old_files }}
