@@ -67,7 +67,7 @@ jobs:
       - name: make diff ${{matrix.new}}
         id: diff-id
         run: |
-          regex=$(echo ${{matrix.new}} | sed 's/\/.*//')
+          regex=$(echo ${{matrix.new}} | sed 's/^[^\/]*\//')
           echo ${{matrix.nf}}
           echo '---separator---\n'
           echo "$regex"
