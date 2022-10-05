@@ -50,7 +50,7 @@ jobs:
           echo "::set-output name=old_files::$old_files"
 
   diff:
-    name: Diff ${{matrix.nf}}
+    name: Diff files
     needs: setup
     runs-on: ubuntu-latest
 
