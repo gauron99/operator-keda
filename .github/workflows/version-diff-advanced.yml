@@ -70,7 +70,7 @@ jobs:
           regex=$(echo ${{matrix.new}} | sed 's/\/.*//')
           echo ${{matrix.nf}}
           echo '---separator---\n'
-          echo "hello"
+          echo "$regex"
 
     #   - name: Create comment
     #     uses: peter-evans/create-or-update-comment@v2
