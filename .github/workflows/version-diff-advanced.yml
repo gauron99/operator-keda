@@ -50,12 +50,13 @@ jobs:
           echo "::set-output name=old_files::$old_files"
 
   diff:
-    name: Create diff of files
-    runs-on: ubuntu-latest
+    name: Diff ${{matrix.nf}}
     needs: setup
+    runs-on: ubuntu-latest
 
     strategy:
-      matrix: ${{fromJSON(needs.setup.outputs.new_files)}}
+      matrix: 
+        nf: ${{fromJSON(needs.setup.outputs.new_files)}}
 
     env:
       of: ${{ needs.setup.outputs.old_files }}
@@ -67,8 +68,8 @@ jobs:
       - name: make diffs
         id: diff-id
         run: |
-          regex=$(echo ${{matrix}} | sed 's/\/.*//')
-          echo $nf
+          regex=$(echo ${{matrix.nf}} | sed 's/\/.*//')
+          echo ${{matrix.nf}}
           echo '---separator---\n'
           echo $regex
 
