@@ -64,7 +64,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: make diff ${{matrix}}
+      - name: make diff ${{matrix.new}}
         id: diff-id
           # regex=$(echo ${{matrix.nf}} | sed 's/\/.*//')
           # echo ${{matrix.nf}}
