@@ -65,6 +65,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: make diff ${{matrix.new}}
+        working-directory: keda/
         id: diff-id
         run: |
           regex=$(echo ${{matrix.new}} | sed 's/^[^\/]*\///')
