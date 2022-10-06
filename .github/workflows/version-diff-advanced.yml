@@ -105,6 +105,7 @@ jobs:
           echo "::set-output name=old_file::$old_file"
 
       - name: Create comment
+        if: ${{steps.diff-id.outputs.body}} > 0
         uses: peter-evans/create-or-update-comment@v2
         with:
           issue-number: ${{ github.event.pull_request.number }}
