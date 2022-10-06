@@ -81,7 +81,7 @@ jobs:
           done
 
           diff_text=""
-          if [ $bool_test = true ]; then  
+          if [ "$bool_test" = true ]; then  
             if diff_text="$(diff --color -br --unified=0 ${{matrix.new}} $old_file)" && [ $? -ne 1 ]; then
               if [ $? -e 2 ]; then
                 echo "exit code of diff is 2 which means trouble"
@@ -100,6 +100,7 @@ jobs:
             diff_text="File ${{matrix.new}} is new file completely and wasn't found in previous version"
           fi
           echo "::set-output name=body::$diff_text"
+          echo "::set-output name=old_file::$old_file"
 
       - name: Create comment
         uses: peter-evans/create-or-update-comment@v2
@@ -107,7 +108,7 @@ jobs:
           issue-number: ${{ github.event.pull_request.number }}
           # max character length is 65536 (2022/10/06)
           body: |
-            Git diff ${{matrix.new}} & $old_file
+            Git diff ${{matrix.new}} & ${{steps.diff-id.outputs.old_file}}
             ${{ steps.diff-id.outputs.body}}  
           reactions: rocket
       
