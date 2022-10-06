@@ -68,7 +68,7 @@ jobs:
         working-directory: keda/
         id: diff-id
         run: |
-          regex=$(echo ${{matrix.new}} | sed 's/^[^\/]*\///')
+          regex=$(echo ${{matrix.new}} | awk 'match($0, /\.[^\.]*\.yaml/) {print substr($0, RSTART, RLENGTH)}')
           old_file=""
           for old in $of
           do
@@ -94,8 +94,8 @@ jobs:
               diff_text="${diff_text//$'\n'/'%0A'}"
               diff_text="${diff_text//$'\r'/'%0D'}"
               echo "$diff_text"
-              if [ ${#diff_text} -ge 65536 ]; then
-                diff_text="Character limit 65536 exceeded for this comment"
+              if [ ${#diff_text} -ge 65436 ]; then
+                diff_text="Diff output is too large - character limit 65436 exceeded for github comment"
               fi
             fi
           else
@@ -110,7 +110,7 @@ jobs:
           issue-number: ${{ github.event.pull_request.number }}
           # max character length is 65536 (2022/10/06)
           body: |
-            Git diff `${{matrix.new}}` & `${{steps.diff-id.outputs.old_file}}`
+            Diff `${{matrix.new}}` & `${{steps.diff-id.outputs.old_file}}`
             ${{steps.diff-id.outputs.body}}  
           reactions: rocket
       
