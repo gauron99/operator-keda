@@ -89,6 +89,10 @@ jobs:
               PREFIX=$'<details>\n```diff\n\n'
               POSTFIX=$'\n\n```\n</details>'
               diff_text="${PREFIX}${diff_text}${POSTFIX}"
+              diff_text="${diff_text//'%'/'%25'}"
+              diff_text="${diff_text//$'\n'/'%0A'}"
+              diff_text="${diff_text//$'\r'/'%0D'}"
+              echo "$diff_text"
               if [ ${#diff_text} -ge 65536 ]; then
                 diff_text="Character limit 65536 exceeded for this comment"
               fi
