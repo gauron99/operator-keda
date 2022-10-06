@@ -68,16 +68,46 @@ jobs:
         id: diff-id
         run: |
           regex=$(echo ${{matrix.new}} | sed 's/^[^\/]*\///')
-          echo ${{matrix.nf}}
-          echo '---separator---\n'
-          echo "$regex"
+          #TODO REMOVE THIS -- check old_file length instead
+          bool_test=false
+          old_file=""
+          for old in $of
+          do
+            if [[ "$regex" == *"$old" ]]; then
+              bool_test=true
+              old_file=$old
+              break
+            fi
+          done
 
-    #   - name: Create comment
-    #     uses: peter-evans/create-or-update-comment@v2
-    #     with:
-    #       issue-number: ${{ github.event.pull_request.number }}
-    #       body: |
-    #         git diff of versions?
-    #         ${{ steps.diff-comment-id.outputs.body }}
-    #       reactions: rocket
+          diff_text=""
+          if [ $bool_test = true ]; then  
+            if diff_text="$(diff --color -br --unified=0 ${{matrix.new}} $old_file)" && [ $? -ne 1 ]; then
+              if [ $? -e 2 ]; then
+                echo "exit code of diff is 2 which means trouble"
+                exit 1;
+              fi
+              diff_text="";
+            else
+              PREFIX=$'<details>\n```diff\n\n'
+              POSTFIX=$'\n\n```\n</details>'
+              diff_text="${PREFIX}${diff_text}${POSTFIX}"
+              if [ ${#diff_text} -ge 65536 ]; then
+                diff_text="Character limit 65536 exceeded for this comment"
+              fi
+            fi
+          else
+            diff_text="File ${{matrix.new}} is new file completely and wasn't found in previous version"
+          fi
+          echo "::set-output name=body::$diff_text"
+
+      - name: Create comment
+        uses: peter-evans/create-or-update-comment@v2
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          # max character length is 65536 (2022/10/06)
+          body: |
+            Git diff ${{matrix.new}} & $old_file
+            ${{ steps.diff-id.outputs.body}}  
+          reactions: rocket
       
