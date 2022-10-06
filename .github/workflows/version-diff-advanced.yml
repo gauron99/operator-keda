@@ -68,12 +68,10 @@ jobs:
         id: diff-id
         run: |
           regex=$(echo ${{matrix.new}} | sed 's/^[^\/]*\///')
-          #TODO REMOVE THIS -- check old_file length instead
-          bool_test=false
           old_file=""
           for old in $of
           do
-            if [[ "$regex" == *"$old" ]]; then
+            if [[ "$old" == *"$regex" ]]; then
               bool_test=true
               old_file=$old
               break
@@ -81,7 +79,7 @@ jobs:
           done
 
           diff_text=""
-          if [ "$bool_test" = true ]; then  
+          if [ -n "$old_file" ]; then  
             if diff_text="$(diff --color -br --unified=0 ${{matrix.new}} $old_file)" && [ $? -ne 1 ]; then
               if [ $? -e 2 ]; then
                 echo "exit code of diff is 2 which means trouble"
