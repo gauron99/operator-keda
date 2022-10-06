@@ -85,7 +85,6 @@ jobs:
                 echo "exit code of diff is 2 which means trouble"
                 exit 1;
               fi
-              diff_text="";
             else
               PREFIX=$'<details>\n```diff\n\n'
               POSTFIX=$'\n\n```\n</details>'
@@ -106,7 +105,7 @@ jobs:
           issue-number: ${{ github.event.pull_request.number }}
           # max character length is 65536 (2022/10/06)
           body: |
-            Git diff ${{matrix.new}} & ${{steps.diff-id.outputs.old_file}}
-            ${{ steps.diff-id.outputs.body}}  
+            Git diff `${{matrix.new}}` & `${{steps.diff-id.outputs.old_file}}`
+            ${{steps.diff-id.outputs.body}}  
           reactions: rocket
       
