@@ -22,7 +22,7 @@ jobs:
           root=$(pwd)
 
           for file in $dir_old_list
-          do 
+          do
             f=$root"/"$file
             if [ -f "$f" ]; then
               old_files="$old_files $file"
@@ -31,7 +31,7 @@ jobs:
 
           new_files+="{\"new\":["
           for file in $dir_new_list
-          do 
+          do
             f=$root"/"$file
             if [ -f "$f" ]; then
               new_files+="\"$file\""
@@ -42,9 +42,9 @@ jobs:
             fi
           done
           new_files+="]}"
-          
+
           echo $old_files
-          echo $new_files          
+          echo $new_files
 
           echo "::set-output name=new_files::$new_files"
           echo "::set-output name=old_files::$old_files"
@@ -59,7 +59,7 @@ jobs:
 
     env:
       of: ${{ needs.setup.outputs.old_files }}
-    
+
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -79,7 +79,7 @@ jobs:
           done
 
           diff_text=""
-          if [ -n "$old_file" ]; then  
+          if [ -n "$old_file" ]; then
             if diff_text="$(diff --color -br --unified=0 ${{matrix.new}} $old_file)" && [ $? -ne 1 ]; then
               if [ $? -eq 2 ]; then
                 echo "exit code of diff is 2 which means trouble"
@@ -110,6 +110,5 @@ jobs:
           # max character length is 65536 (2022/10/06)
           body: |
             Diff `${{matrix.new}}` & `${{steps.diff-id.outputs.old_file}}`
-            ${{steps.diff-id.outputs.body}}  
+            ${{steps.diff-id.outputs.body}}
           reactions: rocket
-      
