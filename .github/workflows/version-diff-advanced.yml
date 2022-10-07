@@ -93,7 +93,6 @@ jobs:
               diff_text="${diff_text//'%'/'%25'}"
               diff_text="${diff_text//$'\n'/'%0A'}"
               diff_text="${diff_text//$'\r'/'%0D'}"
-              echo "$diff_text"
               if [ ${#diff_text} -ge 65436 ]; then
                 diff_text="Diff output is too large - character limit 65436 exceeded for github comment"
               fi
@@ -105,7 +104,7 @@ jobs:
           echo "::set-output name=old_file::$old_file"
 
       - name: Create comment
-        if: ${{steps.diff-id.outputs.body}} > 0
+        if: ${#${{steps.diff-id.outputs.body}}} > 0
         uses: peter-evans/create-or-update-comment@v2
         with:
           issue-number: ${{ github.event.pull_request.number }}
