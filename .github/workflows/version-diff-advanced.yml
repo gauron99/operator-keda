@@ -73,7 +73,6 @@ jobs:
           for old in $of
           do
             if [[ "$old" == *"$regex" ]]; then
-              bool_test=true
               old_file=$old
               break
             fi
@@ -82,7 +81,7 @@ jobs:
           diff_text=""
           if [ -n "$old_file" ]; then  
             if diff_text="$(diff --color -br --unified=0 ${{matrix.new}} $old_file)" && [ $? -ne 1 ]; then
-              if [ $? -e 2 ]; then
+              if [ $? -eq 2 ]; then
                 echo "exit code of diff is 2 which means trouble"
                 exit 1;
               fi
@@ -104,7 +103,7 @@ jobs:
           echo "::set-output name=old_file::$old_file"
 
       - name: Create comment
-        if: ${#${{steps.diff-id.outputs.body}}} > 0
+        if: ${{ steps.diff-id.outputs.body == '' }}
         uses: peter-evans/create-or-update-comment@v2
         with:
           issue-number: ${{ github.event.pull_request.number }}
