@@ -2,8 +2,8 @@
 # Variables                                      #
 ##################################################
 VERSION        ?= main
-IMAGE_REGISTRY ?= ghcr.io
-IMAGE_REPO     ?= kedacore
+IMAGE_REGISTRY ?= docker.io
+IMAGE_REPO     ?= 4141gauron3268
 
 IMAGE_CONTROLLER = $(IMAGE_REGISTRY)/$(IMAGE_REPO)/keda-olm-operator:$(VERSION)
 
