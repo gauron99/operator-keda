@@ -30,10 +30,11 @@ jobs:
 
       # homebrew (+ gcc etc.) removed from $PATH on Ubuntu images.
       # https://github.com/actions/runner-images/issues/6283
-      - name: Setup Environment
+      - name: Setup Homebrew
         uses: Homebrew/actions/setup-homebrew@master
-        run: |
-          sudo apt-get install gcc binutils glibc
+      - name: Setup Env
+        run: sudo apt-get install gcc binutils glibc
+
 
       - name: Install operator-sdk
         run: brew install operator-sdk
