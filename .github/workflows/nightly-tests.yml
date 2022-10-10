@@ -1,10 +1,10 @@
 name: nightly tests
-on:
-  pull_request
+on: workflow_dispatch
+    
     
 
 jobs:
-  nightly-test:
+  nightly-test: 
     name: Nightly test
     runs-on: ubuntu-latest
     steps:
