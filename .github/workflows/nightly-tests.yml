@@ -28,13 +28,8 @@ jobs:
           # Server address of Docker registry. If not set then will default to Docker Hub
           registry: docker.io
 
-      - name: Install homebrew
-        run: |
-          sudo apt-get update
-          /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
-          echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >> /home/runner/.bash_profile
-          eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-          brew doctor
+      - name: setup homebrew
+        uses: Homebrew/actions/setup-homebrew@master
 
       - name: Install operator-sdk
         run: brew install operator-sdk
