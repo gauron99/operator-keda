@@ -37,7 +37,7 @@ jobs:
         uses: docker/login-action@v2
         with:
           # Username used to log in to a Docker registry. If not set then no login will occur
-          username: ${{ github.DOCKER_HUB_USERNAME }}
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
           # Password or personal access token used to log in to a Docker registry. If not set then no login will occur
           password: ${{ secrets.GHCR_AUTH_PAT }}
           # Server address of Docker registry. If not set then will default to Docker Hub
@@ -78,7 +78,7 @@ jobs:
         uses: docker/login-action@v2
         with:
           # Username used to log in to a Docker registry. If not set then no login will occur
-          username: ${{ github.DOCKER_HUB_USERNAME }}
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
           # Password or personal access token used to log in to a Docker registry. If not set then no login will occur
           password: ${{ secrets.GHCR_AUTH_PAT }}
           # Server address of Docker registry. If not set then will default to Docker Hub
@@ -146,7 +146,7 @@ jobs:
         uses: docker/login-action@v2
         with:
           # Username used to log in to a Docker registry. If not set then no login will occur
-          username: ${{ github.DOCKER_HUB_USERNAME }}
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
           # Password or personal access token used to log in to a Docker registry. If not set then no login will occur
           password: ${{ secrets.GHCR_AUTH_PAT }}
           # Server address of Docker registry. If not set then will default to Docker Hub
