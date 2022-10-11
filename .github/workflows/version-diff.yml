@@ -1,6 +1,6 @@
-name: git diff dynamic jobs
+name: total super cool stuff
 on:
-  pull_request_target:
+  pull_request_target
 
 jobs:
   setup:
