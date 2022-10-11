@@ -1,6 +1,6 @@
 name: git diff dynamic jobs
 on:
-  pull_request:
+  pull_request_target:
     paths:
       - 'keda/**'
 
@@ -12,7 +12,16 @@ jobs:
       old_files: ${{ steps.setup-id.outputs.old_files }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
+
+      - name: Register workspace path
+        run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
+
+      - name: Checkout Pull Request
+        id: checkout
+        run: |
+          echo ${{ github.event.issue.pull_request.url }}
+          gh pr checkout ${{ github.event.issue.pull_request.url }}
 
       - name: Setup dirs for diff
         id: setup-id
