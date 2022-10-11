@@ -16,6 +16,8 @@ jobs:
         run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
 
       - name: Checkout Pull Request
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         id: checkout
         run: |
           pr_url=${{ github.event.issue.pull_request.url }}
