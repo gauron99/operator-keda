@@ -1,6 +1,7 @@
 name: total super cool stuff
 on:
-  pull_request_target
+  pull_request_target:
+    types: [opened]
 
 jobs:
   setup:
