@@ -1,8 +1,5 @@
 name: total super cool stuff
-on:
-  pull_request_target:
-    types: [opened]
-
+on: pull_request
 jobs:
   setup:
     runs-on: ubuntu-latest
@@ -26,7 +23,7 @@ jobs:
           echo "test url: $pr_url"
           pr_num=${pr_url##*/}
           echo "test num: $pr_num"
-          # gh pr checkout ${{ github.event.pull_request.url }}
+          # gh pr checkout ${{ $pr_num }}
 
       - name: Setup dirs for diff
         id: setup-id
