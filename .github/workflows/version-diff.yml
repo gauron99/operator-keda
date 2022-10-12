@@ -26,7 +26,7 @@ jobs:
           echo "test url: $pr_url"
           pr_num=${pr_url##*/}
           echo "test num: $pr_num"
-          # gh pr checkout ${{ $pr_num }}
+          # gh pr checkout $pr_num
 
 
       - name: Setup dirs for diff
