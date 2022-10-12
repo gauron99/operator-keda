@@ -1,5 +1,7 @@
+
 name: total super cool stuff
 on: pull_request
+
 jobs:
   setup:
     runs-on: ubuntu-latest
@@ -8,6 +10,7 @@ jobs:
       old_files: ${{ steps.setup-id.outputs.old_files }}
     steps:
       - name: Checkout
+
         uses: actions/checkout@v3
 
       - name: Register workspace path
@@ -24,6 +27,7 @@ jobs:
           pr_num=${pr_url##*/}
           echo "test num: $pr_num"
           # gh pr checkout ${{ $pr_num }}
+
 
       - name: Setup dirs for diff
         id: setup-id
