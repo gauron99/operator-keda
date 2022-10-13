@@ -21,13 +21,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         id: checkout
         run: |
-          echo "github_ref: $GITHUB_REF"
-          pr_url=${{ github.event.pull_request.url }}
-          echo "test url: $pr_url"
-          pr_num=${pr_url##*/}
-          echo "test num: $pr_num"
-          # gh pr checkout $pr_num
-
+          gh pr checkout ${{ github.event.number }}
 
       - name: Setup dirs for diff
         id: setup-id
