@@ -1,3 +1,4 @@
 not-annotations:
   a: b
   test: T
+  Btest: not
