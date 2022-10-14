@@ -10,3 +10,4 @@ annotations:
   operators.operatorframework.io.metrics.project_layout: go.kubebuilder.io/v2
   editthissupergood: awesome stuff
   alsoeditedcozwhynot: yay
+  letsaddanotherone: super
