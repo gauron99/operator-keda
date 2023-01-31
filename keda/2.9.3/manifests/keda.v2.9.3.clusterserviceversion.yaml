@@ -573,7 +573,7 @@ spec:
   - scaling
   - event
   labels:
-    alm-owner-keda: dd
+    alm-owner-keda: keda
     operated-by: keda
   links:
   - name: d
