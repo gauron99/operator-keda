@@ -5,7 +5,54 @@ on:
       - 'keda/**'
 
 jobs:
+  condition-check:
+    outputs:
+      check: ${{ steps.meet-conditions-id.outputs.check}}
+      baseFiles: ${{steps.base-branch-id.baseFiles}}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Get keda/ files in base branch
+        id: base-branch-id
+        run: |
+          baseFiles=$(ls keda)
+
+      - name: Checkout Pull Request
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        id: checkout
+        run: |
+          gh pr checkout ${{ github.event.number }}
+
+      - name: meet conditions for new release
+        id: meet-conditions-id
+        run:  |
+          #new directory created in keda/
+          bf=${{baseFiles}}
+          nf=$(ls keda/)
+          # new branch must have more dirs (if new one was created)
+          echo "${#nf[@]}"
+          echo "${#bf[@]}"
+          if [ "${#nf[@]}" -g "${#bf[@]}" ]; then
+            check=1
+          else
+            check=0
+          fi
+          echo $check
+          exit 1
+          #resources/keda.yaml is updated
+          tester=$(git diff --name-only --diff-filter=ACMRT ${{ github.event.workflow_run.head_sha }} ${{ github.sha }} | xargs)
+          echo $tester
+          if [[ ! " ${tester[*]} " =~ "resources/keda.yaml" ]]; then
+           echo "Did you forget to update resources/keda.yaml file? https://github.com/kedacore/keda-olm-operator/blob/main/RELEASE-PROCESS.MD#1-keda-release-yaml-file"
+            exit 1
+          fi
   setup:
+    needs: condition-check
     runs-on: ubuntu-latest
     outputs:
       new_files: ${{ steps.setup-id.outputs.new_files }}
@@ -22,17 +69,6 @@ jobs:
         id: checkout
         run: |
           gh pr checkout ${{ github.event.number }}
-
-      - name: resources/keda.yaml is updated
-        run:  |
-          tester=$(git diff --name-only --diff-filter=ACMRT ${{ github.event.workflow_run.head_sha }} ${{ github.sha }} | xargs)
-          echo $tester
-          if [[ " ${tester[*]} " =~ "resources/keda.yaml" ]]; then
-            exit 0
-          else
-           echo "Did you forget to update resources/keda.yaml file? https://github.com/kedacore/keda-olm-operator/blob/main/RELEASE-PROCESS.MD#1-keda-release-yaml-file"
-            exit 1
-          fi
 
       - name: Setup dirs for diff
         id: setup-id
