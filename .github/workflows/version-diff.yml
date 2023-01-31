@@ -18,7 +18,7 @@ jobs:
 
       - name: Get keda/ files in base branch
         id: base-branch-id
-        run: echo" baseFiles=$(ls keda) >> $GITHUB_OUTPUT
+        run: echo "baseFiles=$(ls keda)" >> $GITHUB_OUTPUT
 
 
       - name: Checkout Pull Request
