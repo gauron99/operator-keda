@@ -576,7 +576,7 @@ spec:
     alm-owner-keda: dd
     operated-by: keda
   links:
-  - name: Homepage
+  - name: d
     url: https://keda.sh
   - name: Source Code
     url: https://github.com/kedacore/keda
