@@ -591,4 +591,4 @@ spec:
     name: KEDA Community
   replaces: keda.v2.8.2
   selector: {}
-  version: 2.9.3
+  version: 2.12.3
