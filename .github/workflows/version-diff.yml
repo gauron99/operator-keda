@@ -20,6 +20,7 @@ jobs:
         id: base-branch-id
         run: |
           a=$(ls keda)
+          echo $a
           echo "baseFiles=$a" >> $GITHUB_ENV
 
 
