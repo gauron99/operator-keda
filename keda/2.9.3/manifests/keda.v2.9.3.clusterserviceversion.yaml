@@ -584,7 +584,7 @@ spec:
     url: https://kubernetes.slack.com/messages/CKZJ36A5D
   maintainers:
   - email: cncf-keda-maintainers@lists.cncf.io
-    name: KEDA Community
+    name: KEDA Communitys
   maturity: alpha
   minKubeVersion: 1.17.0
   provider:
