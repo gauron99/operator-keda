@@ -573,7 +573,7 @@ spec:
   - scaling
   - event
   labels:
-    alm-owner-keda: keda
+    alm-owner-keda: dd
     operated-by: keda
   links:
   - name: Homepage
