@@ -54,6 +54,7 @@ jobs:
             exit 1
           fi
   setup:
+    needs: condition-check
     if: needs.condition-check.outputs.check
     runs-on: ubuntu-latest
     outputs:
