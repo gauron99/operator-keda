@@ -37,7 +37,7 @@ jobs:
           nf=$(ls keda | xargs)
           echo "new:"$nf
           echo "old:"$bf
-          # new branch must have more dirs (if new one was created)
+          # new branch must be different (if new directory was created)
           if [ "$nf" != "$bf" ]; then
             echo " IS DIFF"
             check=1
@@ -46,7 +46,6 @@ jobs:
             check=0
           fi
           echo $check
-          exit 1
           #resources/keda.yaml is updated
           tester=$(git diff --name-only --diff-filter=ACMRT ${{ github.event.workflow_run.head_sha }} ${{ github.sha }} | xargs)
           echo $tester
@@ -55,7 +54,7 @@ jobs:
             exit 1
           fi
   setup:
-    needs: condition-check
+    if: jobs.condition-check.check
     runs-on: ubuntu-latest
     outputs:
       new_files: ${{ steps.setup-id.outputs.new_files }}
@@ -105,6 +104,7 @@ jobs:
           echo "::set-output name=new_files::$new_files"
           echo "::set-output name=old_files::$old_files"
   diff:
+    if: jobs.condition-check.check
     name: Diff files
     needs: setup
     runs-on: ubuntu-latest
