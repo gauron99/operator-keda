@@ -18,8 +18,6 @@ jobs:
       - name: Get keda/ files in base branch
         id: base-branch-id
         run: |
-          a=$(ls keda)
-          b=$a
           echo 'baseFiles=$(ls keda)<<EOF' >> $GITHUB_ENV
 
 
@@ -38,8 +36,8 @@ jobs:
           nf=$(ls keda/)
 
           # new branch must have more dirs (if new one was created)
-          echo "${#nf[@]}"
-          echo "${#bf[@]}"
+          echo "$nf"
+          echo "$bf"
           if [ "${#nf[@]}" -g "${#bf[@]}" ]; then
             check=1
           else
