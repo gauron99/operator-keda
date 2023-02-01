@@ -10,16 +10,15 @@ jobs:
       check: ${{ steps.meet-conditions-id.outputs.check}}
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-
       - name: Get keda/ files in base branch
         id: base-branch-id
         run: |
           echo 'baseFiles=$(ls keda | xargs)' >> $GITHUB_ENV
           echo `EOF` >> $GITHUB_ENV
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
 
 
       - name: Checkout Pull Request
