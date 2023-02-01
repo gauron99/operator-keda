@@ -45,6 +45,7 @@ jobs:
             check=
           fi
           echo $check
+          echo "check=$check" >> $GITHUB_OUTPUT
           #resources/keda.yaml is updated
           tester=$(git diff --name-only --diff-filter=ACMRT ${{ github.event.workflow_run.head_sha }} ${{ github.sha }} | xargs)
           echo $tester
