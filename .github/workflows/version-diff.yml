@@ -102,8 +102,8 @@ jobs:
             fi
           done
           new_files+="]}"
-          echo "::set-output name=new_files::$new_files"
-          echo "::set-output name=old_files::$old_files"
+          echo "new_files=$new_files" >> $GITHUB_OUTPUT
+          echo "old_files=$old_files" >> $GITHUB_OUTPUT
   diff:
     if: always() && needs.condition-check.outputs.check != ''
     name: Diff files
@@ -167,8 +167,8 @@ jobs:
           else
             diff_text="File \`$new_file\` wasn't found in previous version, its brand new!"
           fi
-          echo "::set-output name=body::$diff_text"
-          echo "::set-output name=old_file::$old_file"
+          echo "body=$diff_text" >> $GITHUB_OUTPUT
+          echo "old_file=$old_file" >> $GITHUB_OUTPUT
 
       - name: Find comment
         uses: peter-evans/find-comment@v2
