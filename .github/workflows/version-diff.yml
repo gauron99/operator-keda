@@ -19,7 +19,7 @@ jobs:
         id: base-branch-id
         run: |
           echo 'baseFiles=$(ls keda)' >> $GITHUB_ENV
-          echo 'EOF' >> $GITHUB_ENV
+          echo `EOF` >> $GITHUB_ENV
 
 
       - name: Checkout Pull Request
