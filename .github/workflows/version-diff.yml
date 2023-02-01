@@ -19,8 +19,8 @@ jobs:
         id: base-branch-id
         run: |
           a=$(ls keda)
-          echo $a
-          echo "baseFiles=$a" >> $GITHUB_ENV
+          b=$a
+          echo 'baseFiles=$(ls keda)<<EOF' >> $GITHUB_ENV
 
 
       - name: Checkout Pull Request
@@ -36,6 +36,7 @@ jobs:
           #new directory created in keda/
           bf=${{ env.baseFiles }}
           nf=$(ls keda/)
+
           # new branch must have more dirs (if new one was created)
           echo "${#nf[@]}"
           echo "${#bf[@]}"
