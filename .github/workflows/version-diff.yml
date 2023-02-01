@@ -13,7 +13,9 @@ jobs:
       - name: Get keda/ files in base branch
         id: base-branch-id
         run: |
-          echo 'baseFiles=$(ls keda | xargs)' >> $GITHUB_ENV
+          a=$(ls keda | xargs)
+          echo $a
+          echo 'baseFiles=$a' >> $GITHUB_ENV
       - name: Checkout
         uses: actions/checkout@v3
         with:
