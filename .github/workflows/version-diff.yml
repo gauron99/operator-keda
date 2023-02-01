@@ -35,7 +35,8 @@ jobs:
           #new directory created in keda/
           bf=${{ env.baseFiles }}
           nf=$(ls keda | xargs)
-
+          echo "new:"$nf
+          echo "old:"$bf
           # new branch must have more dirs (if new one was created)
           if [ "$nf" != "$bf" ]; then
             echo " IS DIFF"
