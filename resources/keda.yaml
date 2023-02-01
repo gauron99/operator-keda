@@ -9245,5 +9245,5 @@ spec:
   service:
     name: keda-metrics-apiserver
     namespace: keda
-  version: v1beta1
+  version: v1beta1ssss
   versionPriority: 100
