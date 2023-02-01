@@ -6,7 +6,7 @@ metadata:
   creationTimestamp: null
   labels:
     app.kubernetes.io/part-of: keda-operator
-    app.kubernetes.io/version: 2.10.2
+    app.kubernetes.io/version: 2.10.23
   name: clustertriggerauthentications.keda.sh
 spec:
   group: keda.sh
