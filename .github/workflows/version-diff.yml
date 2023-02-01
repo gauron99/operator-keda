@@ -31,7 +31,7 @@ jobs:
         id: meet-conditions-id
         run: |
           #new directory created in keda/
-          bf="\""${{ steps.base-branch-id.outputs.baseFiles }}"\""
+          bf=\"${{ steps.base-branch-id.outputs.baseFiles }}\"
           nf=$(ls keda | xargs)
           echo "new:"$nf
           echo "old:"$bf
