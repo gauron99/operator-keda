@@ -54,7 +54,7 @@ jobs:
             exit 1
           fi
   setup:
-    if: jobs.condition-check.check
+    if: needs.condition-check.check
     runs-on: ubuntu-latest
     outputs:
       new_files: ${{ steps.setup-id.outputs.new_files }}
@@ -104,7 +104,7 @@ jobs:
           echo "::set-output name=new_files::$new_files"
           echo "::set-output name=old_files::$old_files"
   diff:
-    if: jobs.condition-check.check
+    if: needs.condition-check.check
     name: Diff files
     needs: setup
     runs-on: ubuntu-latest
