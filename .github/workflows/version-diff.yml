@@ -37,7 +37,7 @@ jobs:
           nf=$(ls keda | xargs)
 
           # new branch must have more dirs (if new one was created)
-          if [ "$nf" != "$bf" ]; then
+          if [ "$nf" -e "$bf" ]; then
             echo " IS DIFF"
             check=1
           else
