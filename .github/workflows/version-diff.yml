@@ -34,12 +34,13 @@ jobs:
         run: |
           #new directory created in keda/
           bf=${{ env.baseFiles }}
-          nf=$(ls keda/)
+          nf=$(ls keda)
 
           # new branch must have more dirs (if new one was created)
           echo "$nf"
           echo "$bf"
-          if [ "${#nf[@]}" -g "${#bf[@]}" ]; then
+          exit 1
+          if [ "$nf" != "$bf" ]; then
             check=1
           else
             check=0
