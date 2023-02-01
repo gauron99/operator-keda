@@ -8,6 +8,8 @@ jobs:
   condition-check:
     outputs:
       check: ${{ steps.meet-conditions-id.outputs.check}}
+    env:
+      baseFiles: ${{ steps.base-branch-id.outputs.baseFiles}}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
