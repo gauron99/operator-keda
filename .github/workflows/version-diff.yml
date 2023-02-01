@@ -19,7 +19,6 @@ jobs:
         id: base-branch-id
         run: |
           a=`ls keda | xargs`
-          echo $a
           echo "baseFiles=$a" >> $GITHUB_OUTPUT
 
       - name: Checkout Pull Request
@@ -40,10 +39,10 @@ jobs:
           # new branch must be different (if new directory was created)
           if [ "$nf" != "$bf" ]; then
             echo " IS DIFF"
-            check=1
+            check="ok"
           else
             echo "IS D SAME"
-            check=0
+            check="not"
           fi
           echo $check
           #resources/keda.yaml is updated
@@ -55,7 +54,7 @@ jobs:
           fi
   setup:
     needs: condition-check
-    if: needs.condition-check.outputs.check == 1
+    if: needs.condition-check.outputs.check == "ok"
     runs-on: ubuntu-latest
     outputs:
       new_files: ${{ steps.setup-id.outputs.new_files }}
@@ -105,7 +104,7 @@ jobs:
           echo "::set-output name=new_files::$new_files"
           echo "::set-output name=old_files::$old_files"
   diff:
-    if: needs.condition-check.outputs.check == 1
+    if: needs.condition-check.outputs.check == "ok"
     name: Diff files
     needs: setup
     runs-on: ubuntu-latest
