@@ -37,7 +37,10 @@ jobs:
           nf=$(ls keda)
 
           # new branch must have more dirs (if new one was created)
+          sed 's/\\n/ /g' <<< $nf
+          sed 's/\\n/ /g' <<< $bf
           echo "$nf"
+          echo 'tralalal \n'
           echo "$bf"
           exit 1
           if [ "$nf" != "$bf" ]; then
