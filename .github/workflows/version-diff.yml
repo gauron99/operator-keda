@@ -20,7 +20,8 @@ jobs:
         run: |
           a=$(ls keda | xargs)
           echo $a
-          echo 'baseFiles=$a' >> $GITHUB_ENV
+          echo 'baseFiles=$(ls keda | xargs)' >> $GITHUB_OUTPUT
+          echo 'testFiles=${a}' >> $GITHUB_OUTPUT
 
       - name: Checkout Pull Request
         env:
@@ -33,7 +34,7 @@ jobs:
         id: meet-conditions-id
         run: |
           #new directory created in keda/
-          bf=${{ env.baseFiles }}
+          bf=${{ steps.base-branch-id.outputs].baseFiles }}
           nf=$(ls keda | xargs)
           echo "new:"$nf
           echo "old:"$bf
