@@ -18,7 +18,7 @@ jobs:
       - name: Get keda/ files in base branch
         id: base-branch-id
         run: |
-          echo 'baseFiles=$(ls keda)' >> $GITHUB_ENV
+          echo 'baseFiles=$(ls keda | xargs)' >> $GITHUB_ENV
           echo `EOF` >> $GITHUB_ENV
 
 
@@ -34,13 +34,10 @@ jobs:
         run: |
           #new directory created in keda/
           bf=${{ env.baseFiles }}
-          nf=$(ls keda)
+          nf=$(ls keda | xargs)
 
           # new branch must have more dirs (if new one was created)
-          sed 's/\n/ /g' <<< $nf
-          sed 's/\\n/ /g' <<< $bf
           echo "$nf"
-          echo -e "\ntralalal\n"
           echo "$bf"
           exit 1
           if [ "$nf" != "$bf" ]; then
