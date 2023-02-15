@@ -10,7 +10,7 @@ spec:
   names:
     kind: KedaController
     listKind: KedaControllerList
-    plural: kedacontrollers
+    plural: notlikethissupertextplural
     singular: kedacontroller
   scope: Namespaced
   versions:
@@ -20,9 +20,7 @@ spec:
         description: KedaController is the Schema for the kedacontrollers API
         properties:
           apiVersion:
-            description: 'APIVersion defines the versioned schema of this representation
-              of an object. Servers should convert recognized schemas to the latest
-              internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+            description: 'just wantedto change this completelty so i can get some new perspective no things byt hopefully this iss still a text and stuff alue, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
             type: string
           kind:
             description: 'Kind is a string value representing the REST resource this

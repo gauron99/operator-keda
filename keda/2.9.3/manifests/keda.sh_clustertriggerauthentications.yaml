@@ -7,13 +7,13 @@ metadata:
   labels:
     app.kubernetes.io/part-of: keda-operator
     app.kubernetes.io/version: 2.9.3
-  name: clustertriggerauthentications.keda.sh
+  name: supernewname
 spec:
   group: keda.sh
   names:
     kind: ClusterTriggerAuthentication
     listKind: ClusterTriggerAuthenticationList
-    plural: clustertriggerauthentications
+    plural: thisisamazingplural
     shortNames:
     - cta
     - clustertriggerauth
